@@ -18,13 +18,14 @@ export const getServerSideProps: GetServerSideProps<{ repo: Repo }> = async () =
 const Index = ({ repo }: { repo: ProductProps[] }) => {
   return (
     <>
-    <Head>
-      <title>Home</title>
-    </Head>
+      <Head>
+        <title>Home</title>
+      </Head>
       <div className='w-[100%]'>
-        <div className='p-2 mobile:px-4 grid desktop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-2 desktop:w-3/5 tablet:w-4/5 m-auto'>
+        <div className='p-2 mobile:px-4 grid desktop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 gap-3 desktop:w-3/5 tablet:w-4/5 m-auto'>
           {repo.map((product, i) => {
             return <Product
+              productId={product.productId}
               key={i.toString()}
               heading={product.heading}
               price={product.price} />
