@@ -3,3 +3,8 @@ export interface ProductProps {
     heading: string,
     price: number
 }
+
+export interface LabProps {
+    labName: string,
+    labLocation: string
+}

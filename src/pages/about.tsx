@@ -5,10 +5,10 @@ const About = () => {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>About US</title>
       </Head>
       <div className='h-screen'>
-        <div className='p-6 text-6xl m-auto w-max'>Will Updated Soon</div>
+        <div className='p-6 text-6xl m-auto w-max'>We are TrueTest</div>
       </div>
     </>
   )

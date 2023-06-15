@@ -8,18 +8,15 @@ const NavBar = ({ cartCount }: { cartCount: number }) => {
         <Link href="/">
           <div className="text-2xl font-bold text-white">True Test</div>
         </Link>
-        <div className="flex space-x-4">
-          <Link href="/link1">
-            <div className="hover:text-indigo-500 text-white">Link 1</div>
+        <div className="flex space-x-3">
+          <Link href="/labs">
+            <div className="hover:text-indigo-500 text-white">Labs</div>
           </Link>
-          <Link href="/link2">
-            <div className="hover:text-indigo-500 text-white">Link 2</div>
+          <Link href="/products">
+            <div className="hover:text-indigo-500 text-white">Products</div>
           </Link>
-          <Link href="/link3">
-            <div className="hover:text-indigo-500 text-white">Link 3</div>
-          </Link>
-          <Link href="/link4">
-            <div className="hover:text-indigo-500 text-white">Link 4</div>
+          <Link href="/about">
+            <div className="hover:text-indigo-500 text-white">About</div>
           </Link>
         </div>
         <div className="flex space-x-4">
