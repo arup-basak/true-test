@@ -10,7 +10,8 @@ interface Repo {
 }
 
 export const getServerSideProps: GetServerSideProps<{ repo: Repo }> = async () => {
-  const res = await fetch('http://localhost:3000/api/products');
+  const URL = process.env.PRODUCT_URL || "localhost:3000"
+  const res = await fetch(URL);
   const repo = await res.json();
   return { props: { repo } };
 };
