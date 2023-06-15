@@ -1,26 +1,40 @@
-import React from 'react'
-import Link from 'next/link'
+import React from 'react';
+import Link from 'next/link';
 
-const NavBar = () => {
-    return (
-        <div className='grid grid-cols-4 bg-fuchsia-300'>
-            <Link href="/">
-                <h1 className='text-2xl p-3'>True Test</h1>
-            </Link>
-            <div className='flex justify-between w-4/5'>
-                <div>Link 1</div>
-                <div>Link 2</div>
-                <div>Link 3</div>
-                <div>Link 4</div>
-            </div>
-            <Link href="tel:+919732919663">
-                <button className='p-2 px-4 bg-purple-300 rounded w-fit'>Call Now</button>
-            </Link>
-            <Link href="/cart">
-                <button className='p-2 px-4 bg-purple-300 rounded w-fit'>Cart</button>
-            </Link>
+const NavBar = ({ cartCount }: { cartCount: number }) => {
+  return (
+    <nav className="bg-gray-900 text-white">
+      <div className="container mx-auto flex justify-between items-center py-4">
+        <Link href="/">
+          <div className="text-2xl font-bold text-white">True Test</div>
+        </Link>
+        <div className="flex space-x-4">
+          <Link href="/link1">
+            <div className="hover:text-indigo-500 text-white">Link 1</div>
+          </Link>
+          <Link href="/link2">
+            <div className="hover:text-indigo-500 text-white">Link 2</div>
+          </Link>
+          <Link href="/link3">
+            <div className="hover:text-indigo-500 text-white">Link 3</div>
+          </Link>
+          <Link href="/link4">
+            <div className="hover:text-indigo-500 text-white">Link 4</div>
+          </Link>
         </div>
-    )
-}
+        <div className="flex space-x-4">
+          <Link href="tel:+919732919663">
+            <div className="px-4 py-2 bg-purple-800 rounded text-white">Call Now</div>
+          </Link>
+          <Link href="/cart">
+            <div className="px-4 py-2 bg-purple-800 rounded text-white">
+              {cartCount === 0 ? 'Cart' : `Cart ${cartCount}`}
+            </div>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
-export default NavBar
+export default NavBar;
