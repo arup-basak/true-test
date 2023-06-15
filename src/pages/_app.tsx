@@ -11,12 +11,12 @@ const roboto = Roboto({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={roboto.className}>
+    <main className={`flex flex-col ${roboto.className}`}>
       <NavBar cartCount={0}/>
       <Component 
         {...pageProps} 
         />
-        <Footer />
+      <Footer />
     </main>
   );
 }

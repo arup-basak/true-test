@@ -27,7 +27,7 @@ const Cart = () => {
       <Head>
         <title>Cart</title>
       </Head>
-      <div className='grid grid-cols-[1fr_12rem] w-3/5 m-auto'>
+      <div className='grid phone:grid-cols-1 tablet:grid-cols-[1fr_12rem] mobile: w-9/12 tablet:w-3/5 mobile:w-full tablet:m-auto'>
         <div className=''>
           {cartData.map((product, index) => (
             <CartComponent

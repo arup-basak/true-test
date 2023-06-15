@@ -11,7 +11,7 @@ const HomePage: React.FC<{ labs: LabProps[] }> = ({ labs }) => {
       </Head>
       <div className='h-screen'>
         <div className='p-6 text-3xl m-auto w-max'>Visit our Labs</div>
-        <div className='grid grid-cols-2 m-auto w-3/4 gap-2 p-2'>
+        <div className='grid desktop:grid-cols-2 tablet:grid-cols-2 mobile:grid-cols-1 m-auto w-3/5 gap-2 p-2'>
           {labs.map((lab, index) => (
             <LabComponent key={index} labName={lab.labName} labLocation={lab.labLocation} />
           ))}
