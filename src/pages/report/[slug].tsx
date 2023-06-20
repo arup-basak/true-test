@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { jsPDF } from "jspdf";
 
 const Post = () => {
@@ -9,15 +9,24 @@ const Post = () => {
     const [data, setData] = useState("");
     const [loading, setLoading] = useState(true);
 
-    const handleGeneratePdfClick = () =>  {
-        
+    const pdfRef = useRef(null);
+
+    const handleGeneratePdfClick = (
+        patientName: string
+    ) => {
+        const content = pdfRef.current || "No Data";
+        const doc = new jsPDF();
+        doc.html(content, {
+            callback: function (doc) {
+                doc.save(`${patientName.replace(" ", "_")}_${slug}.pdf`);
+            }
+        });
     }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const url = `http://localhost:3000/api/reports?id=${slug}`;
-                console.log(url)
+                const url = `/api/reports?id=${slug}`;
                 const response = await fetch(url);
                 const jsonData = await response.json();
                 setData(jsonData['patientName']);
@@ -46,16 +55,21 @@ const Post = () => {
         );
     }
 
-
-
     return (
         <main>
             <Head>
                 <title>{data}</title>
             </Head>
             <div>
-                {data}
-                <button className="bg-red-800 p-2" onClick={handleGeneratePdfClick}>Generate PDF</button>
+                {/* This is PDF area */}
+                <div ref={pdfRef}>
+                    {data}
+                </div>
+                <button
+                    className="bg-red-800 p-2"
+                    onClick={() => handleGeneratePdfClick(data)}>
+                    Generate PDF
+                </button>
             </div>
         </main>
     );

@@ -26,7 +26,7 @@ const NavBar = ({ cartCount }: { cartCount: number }) => {
 
         <div className='flex mobile:m-auto tablet:m-0 pl-3'>
           <NavButton innerText='Download Report' link="/report" imageIcon={download_icon} />
-          <NavButton innerText='CallNow' link="tel:+919732919663" />
+          <NavButton innerText='Call Now' link="tel:+919732919663" />
           <NavButton innerText={cartCount === 0 ? 'Cart' : `Cart ${cartCount}`} link="/cart" />
         </div>
       </div>
