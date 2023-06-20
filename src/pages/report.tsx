@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
+import Link from 'next/link';
 
 const App = () => {
   const [inputValue, setInputValue] = useState('');
@@ -31,14 +32,16 @@ const App = () => {
             className="px-4 py-2 border border-gray-300 rounded-md sm:w-64 md:w-96 m-1"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.preventDefault()}
+            autoComplete='no'
           />
+          <Link href={`/report/${inputValue}`}>
           <button
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 m-1"
             onClick={handleSubmit}
           >
             Submit
           </button>
+          </Link>
         </div>
       </motion.div>
     </>
