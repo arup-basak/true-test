@@ -8,7 +8,7 @@ const About = () => {
         <title>About Us</title>
       </Head>
       <div className='h-screen'>
-        <div className='p-6 text-6xl m-auto w-max'>We are TrueTest</div>
+        <div className='p-6 text-2xl m-auto w-max'>We are TrueTest</div>
       </div>
     </>
   )

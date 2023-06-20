@@ -8,7 +8,7 @@ const About = () => {
         <title>Home</title>
       </Head>
       <div className='h-screen'>
-        <div className='p-6 text-6xl m-auto w-max'>Will Updated Soon</div>
+        <div className='p-6 text-2xl m-auto w-max'>Will Updated Soon</div>
       </div>
     </>
   )
