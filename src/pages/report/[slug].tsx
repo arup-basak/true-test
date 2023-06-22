@@ -23,8 +23,13 @@ const Post = () => {
         patientName: string
     ) => {
         const content = pdfRef.current || "No Data";
-        const doc = new jsPDF();
+        const doc = new jsPDF("p", "px", "a4", true);
         doc.html(content, {
+            html2canvas: {
+                allowTaint: true,
+                useCORS: true,
+                scale: 0.31
+            },
             callback: function (doc) {
                 doc.save(`${patientName.replace(" ", "_")}_${slug}.pdf`);
             }
