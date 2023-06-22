@@ -14,9 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   return (
     <main className={`flex flex-col ${roboto.className}`}>
-      {!router.pathname.includes("/report/") &&
-        < NavBar cartCount={0} />
-      }
+      <NavBar cartCount={0} />
       <Component
         {...pageProps}
       />

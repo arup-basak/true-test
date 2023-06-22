@@ -2,11 +2,19 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
 import { jsPDF } from "jspdf";
+import ReportComponent from '@/components/Report';
+import { Report } from '@/libs/interface'
+import Button from '@/components/Button';
 
 const Post = () => {
     const router = useRouter();
     const { slug } = router.query;
-    const [data, setData] = useState("");
+    const [data, setData] = useState<Report>({
+        patientName: "",
+        patientId: 0,
+        age: 0,
+        testResults: []
+    });
     const [loading, setLoading] = useState(true);
 
     const pdfRef = useRef(null);
@@ -29,7 +37,7 @@ const Post = () => {
                 const url = `/api/reports?id=${slug}`;
                 const response = await fetch(url);
                 const jsonData = await response.json();
-                setData(jsonData['patientName']);
+                setData(jsonData);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -48,7 +56,7 @@ const Post = () => {
                 <Head>
                     <title>Loading...</title>
                 </Head>
-                <div>
+                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-3xl'>
                     Loading...
                 </div>
             </>
@@ -58,18 +66,22 @@ const Post = () => {
     return (
         <main>
             <Head>
-                <title>{data}</title>
+                <title>{data.patientName}</title>
             </Head>
             <div>
-                {/* This is PDF area */}
-                <div ref={pdfRef}>
-                    {data}
+                <div className='m-auto w-3/4 py-3 pt-5'>
+                    <Button
+                        onClick={() => handleGeneratePdfClick(data.patientName)}
+                        innerText={'Generate PDF'}
+                    />
                 </div>
-                <button
-                    className="bg-red-800 p-2"
-                    onClick={() => handleGeneratePdfClick(data)}>
-                    Generate PDF
-                </button>
+                {/* This is PDF area */}
+                <div className='m-auto w-3/4'>
+                    <div ref={pdfRef}>
+                        <ReportComponent data={data} />
+                    </div>
+                </div>
+
             </div>
         </main>
     );

@@ -1,10 +1,21 @@
 import React from 'react'
+import Head from 'next/head'
+import Input from '@/components/Input'
 
 const Add = () => {
   return (
-    <div>
-        Will Updated Soon
-    </div>
+    <>
+      <Head>
+        <title>New Report</title>
+      </Head>
+      <main>
+        <Input />
+        <Input />
+        <Input />
+        <Input />
+        <Input />
+      </main>
+    </>
   )
 }
 
