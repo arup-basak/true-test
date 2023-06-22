@@ -18,7 +18,9 @@ export interface Report {
     patientId: number,
     patientDetails: Table[]
     reportDetails: Table[]
-    testResults: ReportResult[]
+    testResults: ReportResult[],
+    status: "draft" | "success" | "payment-required" | "failed",
+    cost: number
 }
 
 export interface ReportResult {

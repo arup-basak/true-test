@@ -13,7 +13,9 @@ const Post = () => {
         patientId: 0,
         patientDetails: [],
         reportDetails: [],
-        testResults: []
+        testResults: [],
+        status: "failed",
+        cost: 0
     });
     const [loading, setLoading] = useState(true);
 
@@ -68,28 +70,63 @@ const Post = () => {
         );
     }
 
-    return (
-        <main>
-            <Head>
-                <title>{data.patientId}</title>
-            </Head>
-            <div>
-                <div className='m-auto w-3/4 py-3 pt-5'>
-                    <Button
-                        onClick={() => handleGeneratePdfClick(data.patientId.toString())}
-                        innerText={'Generate PDF'}
-                    />
-                </div>
-                {/* This is PDF area */}
-                <div className='m-auto w-3/4'>
-                    <div ref={pdfRef}>
-                        <ReportComponent data={data} />
+    if (data.status === "success")
+        return (
+            <main>
+                <Head>
+                    <title>Report</title>
+                </Head>
+                <div>
+                    <div className='m-auto w-3/4 py-3 pt-5'>
+                        <Button
+                            onClick={() => handleGeneratePdfClick(data.patientId.toString())}
+                            innerText={'Generate PDF'}
+                        />
                     </div>
-                </div>
+                    <div className='m-auto w-3/4'>
+                        <div ref={pdfRef}>
+                            <ReportComponent data={data} />
+                        </div>
+                    </div>
 
+                </div>
+            </main>
+        );
+
+    if (data.status === "draft")
+        return (
+            <>
+                <Head>
+                    <title>Payment Required</title>
+                </Head>
+                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
+                    Your Report is On the Way...
+                </div>
+            </>
+        )
+
+    if (data.status === "failed")
+        return (
+            <>
+                <Head>
+                    <title>Payment Required</title>
+                </Head>
+                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
+                    Your Report Failed
+                </div>
+            </>
+        )
+
+    return (
+        <>
+            <Head>
+                <title>Payment Required</title>
+            </Head>
+            <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-3xl text-red-500'>
+                Please Pay the Amount of {data.cost} to Download the Report
             </div>
-        </main>
-    );
+        </>
+    )
 };
 
 export default Post;

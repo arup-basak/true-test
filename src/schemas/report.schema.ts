@@ -37,14 +37,22 @@ const BloodTestReportSchema = new mongoose.Schema({
             },
             unit: {
                 type: String,
-                required: true
+                required: false
             },
             referenceRange: {
                 type: String,
                 required: true
             }
         }
-    ]
+    ],
+    status: {
+        type: String,
+        required: true
+    },
+    cost: {
+        type: Number,
+        required: true
+    }
 }, {
     timestamps: true
 });
