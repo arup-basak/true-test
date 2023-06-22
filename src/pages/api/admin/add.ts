@@ -26,7 +26,7 @@ export default async function handler(
                 })
                 .catch((e: any) => {
                     console.log(e)
-                    res.status(200).json({ success: false });
+                    res.status(500).json({ success: false });
                 });
 
     } catch(e: any) {

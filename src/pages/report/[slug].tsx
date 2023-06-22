@@ -10,9 +10,9 @@ const Post = () => {
     const router = useRouter();
     const { slug } = router.query;
     const [data, setData] = useState<Report>({
-        patientName: "",
         patientId: 0,
-        age: 0,
+        patientDetails: [],
+        reportDetails: [],
         testResults: []
     });
     const [loading, setLoading] = useState(true);
@@ -71,12 +71,12 @@ const Post = () => {
     return (
         <main>
             <Head>
-                <title>{data.patientName}</title>
+                <title>{data.patientId}</title>
             </Head>
             <div>
                 <div className='m-auto w-3/4 py-3 pt-5'>
                     <Button
-                        onClick={() => handleGeneratePdfClick(data.patientName)}
+                        onClick={() => handleGeneratePdfClick(data.patientId.toString())}
                         innerText={'Generate PDF'}
                     />
                 </div>

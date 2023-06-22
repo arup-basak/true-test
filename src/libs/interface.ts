@@ -9,10 +9,15 @@ export interface LabProps {
     labLocation: string
 }
 
+export interface Table {
+    key: string,
+    value: string
+}
+
 export interface Report {
-    patientName: string,
     patientId: number,
-    age: number,
+    patientDetails: Table[]
+    reportDetails: Table[]
     testResults: ReportResult[]
 }
 

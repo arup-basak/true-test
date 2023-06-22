@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
   return (
     <main className={`flex flex-col ${roboto.className}`}>
-      <NavBar cartCount={0} />
+      <NavBar />
       <Component
         {...pageProps}
       />

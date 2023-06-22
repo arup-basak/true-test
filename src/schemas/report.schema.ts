@@ -1,18 +1,30 @@
 import mongoose from "mongoose";
 
 const BloodTestReportSchema = new mongoose.Schema({
-    patientName: {
-        type: String,
-        required: true
-    },
-    age: {
-        type: Number,
-        required: true
-    },
     patientId: {
         type: Number,
         required: true
     },
+    patientDetails: [{
+        key: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: String,
+            required: true
+        }
+    }],
+    reportDetails: [{
+        key: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: String,
+            required: true
+        }
+    }],
     testResults: [
         {
             testName: {
