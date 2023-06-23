@@ -46,7 +46,7 @@ const NavBar = () => {
             whileTap={{
               scale: .8
             }}
-            className='bg-[#156b85] p-2 px-4 rounded-full text-white flex drop-shadow-sm'>
+            className='bg-[#156b85] p-2 px-4 rounded-full text-white flex drop-shadow-sm whitespace-nowrap'>
             <Image
               src={download_icon}
               alt='download-icon'

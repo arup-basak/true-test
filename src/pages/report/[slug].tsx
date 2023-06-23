@@ -83,7 +83,7 @@ const Post = () => {
                             innerText={'Generate PDF'}
                         />
                     </div>
-                    <div className='m-auto w-3/4'>
+                    <div className='m-auto w-3/4 transform origin-top scale-[.7]'>
                         <div ref={pdfRef}>
                             <ReportComponent data={data} />
                         </div>

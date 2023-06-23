@@ -64,18 +64,18 @@ const Footer = () => {
           </div>
           <div className="col-span-2 md:col-span-1">
             <h3 className="text-xl font-bold">Contact Us</h3>
-            <p className="mt-4">123 Main Street, City</p>
-            <p>Phone: 123-456-7890</p>
-            <p>Email: info@example.com</p>
+            <div>True Test Diagnostic 128/25. Hazra Road</div>
+            <div>(Near Hazra Crossing)Jatin Das Metro Station,</div>
+            <div>Kolkata - 700026</div>
           </div>
         </div>
         <hr className="border-gray-700 mt-8" />
         <div className="text-center text-sm mt-8">
-          <p>&copy; 2023 True Test. All rights reserved.</p>
+          <p>Copyright © 2023, True Test Diagnostics., All Rights Reserved Powered By: ARUP BASAK</p>
           <p className="mt-2">
             Designed and developed by{' '}
             <Link href="/author">
-              <span className="text-gray-300 hover:text-white">Your Name</span>
+              <span className="text-gray-300 hover:text-white">ARUP BASAK</span>
             </Link>
           </p>
         </div>
