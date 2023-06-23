@@ -10,7 +10,7 @@ const roboto = Roboto({
   subsets: ['latin'],
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
   return (
     <main className={`flex flex-col ${roboto.className}`}>
@@ -24,3 +24,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </main>
   );
 }
+
+export default App

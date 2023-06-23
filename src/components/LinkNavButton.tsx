@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion'
 
 interface Props {
     href?: string;
@@ -16,9 +17,15 @@ const LinkNavButton = ({ innerText, href = `/${innerText.toLowerCase()}`, }: Pro
     }, [router.pathname, href]);
 
     return (
-        <div className={`px-3 ${active ? "bg-red-500" : ""}`}>
-            <Link href={href}>{innerText}</Link>
-        </div>
+        <Link href={href}>
+            <motion.div 
+                whileHover={{
+                    
+                }}
+                className={`p-1 px-4 transition rounded-full font-medium ${active ? "bg-slate-300 text-black" : "hover:text-slate-300"}`}>
+                {innerText}
+            </motion.div>
+        </Link>
     );
 };
 

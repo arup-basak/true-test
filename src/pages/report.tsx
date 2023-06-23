@@ -34,14 +34,16 @@ const App = () => {
             onChange={(e) => setInputValue(e.target.value)}
             autoComplete='no'
           />
-          <Link href={`/report/${inputValue}`}>
-          <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 m-1"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-          </Link>
+          {/* <Link href={`/report/${inputValue}`}> */}
+            <motion.button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 m-1"
+              onClick={handleSubmit}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Submit
+            </motion.button>
+          {/* </Link> */}
         </div>
       </motion.div>
     </>
