@@ -20,7 +20,8 @@ export interface Report {
     reportDetails: Table[]
     testResults: ReportResult[],
     status: "draft" | "success" | "payment-required" | "failed",
-    cost: number
+    cost: number,
+    response: boolean
 }
 
 export interface ReportResult {

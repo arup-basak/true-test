@@ -15,7 +15,8 @@ const Post = () => {
         reportDetails: [],
         testResults: [],
         status: "failed",
-        cost: 0
+        cost: 0,
+        response: false
     });
     const [loading, setLoading] = useState(true);
 
@@ -70,25 +71,36 @@ const Post = () => {
         );
     }
 
+    if(data.response == false) 
+        return (
+            <>
+                <Head>
+                    <title>Not Found</title>
+                </Head>
+                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
+                    No Data Found
+                </div>
+            </>
+        )
+
     if (data.status === "success")
         return (
             <main>
                 <Head>
                     <title>Report</title>
                 </Head>
-                <div>
-                    <div className='m-auto w-3/4 py-3 pt-5'>
+                <div className=''>
+                    <div className='tablet:m-auto mobile:w-full tablet:w-3/4 py-3 pt-5'>
                         <Button
                             onClick={() => handleGeneratePdfClick(data.patientId.toString())}
                             innerText={'Generate PDF'}
                         />
                     </div>
-                    <div className='m-auto w-3/4 transform origin-top scale-[.7]'>
+                    <div className='tablet:m-auto tablet:w-3/4 transform origin-top tablet:scale-[.7] mobile:scale-[.4]'>
                         <div ref={pdfRef}>
                             <ReportComponent data={data} />
                         </div>
                     </div>
-
                 </div>
             </main>
         );
@@ -97,7 +109,7 @@ const Post = () => {
         return (
             <>
                 <Head>
-                    <title>Payment Required</title>
+                    <title>On The Way</title>
                 </Head>
                 <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
                     Your Report is On the Way...
@@ -109,7 +121,7 @@ const Post = () => {
         return (
             <>
                 <Head>
-                    <title>Payment Required</title>
+                    <title>Failed</title>
                 </Head>
                 <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
                     Your Report Failed

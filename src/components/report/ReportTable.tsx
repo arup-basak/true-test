@@ -7,8 +7,8 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   return (
-    <div className="w-full py-5">
-      <table className="min-w-full bg-white border border-gray-200">
+    <div className="py-5">
+      <table className="w-full bg-white border">
         <thead>
           <tr>
             <th className="px-6 py-3 bg-gray-100 text-left font-medium text-gray-700">
@@ -29,7 +29,7 @@ const Table = (props: TableProps) => {
           {props.tableData.map((val, key) => {
             return (
               <tr key={key}>
-                <td className="px-6 py-4 whitespace-nowrap  text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-900">
                   {val.testName}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-gray-900">
@@ -38,7 +38,7 @@ const Table = (props: TableProps) => {
                 <td className="px-6 py-4 whitespace-nowrap text-gray-900">
                   {val.unit}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-900">
+                <td className="px-6 py-4 text-gray-900">
                   {val.referenceRange}
                 </td>
               </tr>

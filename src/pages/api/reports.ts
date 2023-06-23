@@ -14,9 +14,13 @@ export default async function handler(
         const model = mongoose.models.bloodtestreports || mongoose.model('bloodtestreports', BloodTestReportSchema);
 
         const response = await model.findOne({ "patientId": req.query.id });
-        res.status(200).json(response);
+        if (response) {
+            res.status(200).json(response);
+        }
+        else
+            res.status(502).json({ "response": false })
     } catch (error) {
         console.error("Error:", error);
-        res.status(500).json({ error: "no data" });
+        res.status(500).json({ "response": false });
     }
 }

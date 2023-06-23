@@ -12,12 +12,13 @@ const ReportComponent = ({ data }: ReportTableProps) => {
   const imageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://true-test.vercel.app/report/${data.patientId}`
 
   return (
-    <div className="p-8 bg-white rounded shadow text-xl">
+    <div className="tablet:p-8 bg-white rounded shadow text-xl">
       <div className="grid grid-cols-2 gap-5">
         <Table data={data.patientDetails} />
         <Table data={data.reportDetails} />
       </div>
-      <ReportTable tableData={data.testResults} />
+      <ReportTable 
+        tableData={data.testResults} />
       <div className='m-auto'>
         <Image
           src={imageUrl}
