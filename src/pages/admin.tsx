@@ -1,51 +1,26 @@
-import React from 'react'
-import Input from '@/components/Input'
-import Head from 'next/head'
-import Button from '@/components/Button'
-import { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react';
+import Login from '@/components/page/login';
+import AdminPanel from '@/components/page/AdminPanel';
+import secureLocalStorage from "react-secure-storage";
 
-const Login = () => {
-    const loginAttempt = useRef(0)
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+const Admin = () => {
+    const [login, setLogin] = useState(false);
 
-    const handleLogin = () => {
+    useEffect(() => {
+        const isLoginSuccessful = secureLocalStorage.getItem("is-login-successful");
+        setLogin(isLoginSuccessful === "true");
+    }, []);
 
+    const handleLoginSuccessful = () => {
+        setLogin(true);
+        secureLocalStorage.setItem("is-login-successful", "true");
     };
 
+    if (!login) {
+        return <Login onLoginSuccessful={handleLoginSuccessful} />;
+    } else {
+        return <AdminPanel />;
+    }
+};
 
-    return (
-        <>
-            <Head>
-                <title>LogIn</title>
-            </Head>
-            <div className='m-auto'>
-                <Input
-                    label='Username'
-                    className=' min-w-[300px]'
-                    maxLen={10}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <Input
-                    type='password'
-                    label='Password'
-                    className=' min-w-[300px]'
-                    maxLen={10}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <Button
-                    innerText='Login'
-                    onClick={handleLogin}
-                    className='m-auto px-5 rounded-full'
-                />
-
-            </div>
-        </>
-    )
-}
-
-const admin = () => {
-    return <Login />
-}
-
-export default Login
+export default Admin;
