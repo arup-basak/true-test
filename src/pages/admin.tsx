@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Login from '@/components/page/login';
+import Login from '@/components/page/Login';
 import AdminPanel from '@/components/page/AdminPanel';
 import secureLocalStorage from "react-secure-storage";
 
