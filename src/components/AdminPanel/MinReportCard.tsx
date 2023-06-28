@@ -29,7 +29,7 @@ const MinReportCard = (
                 />
                 <Button
                     innerText='Get Report'
-                    onClick={() => push(`/report/${data.patientId}`)} />
+                    onClick={() => push(`/admin/report/${data.patientId}`)} />
             </div>
         </div>
     )

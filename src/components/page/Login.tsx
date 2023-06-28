@@ -5,7 +5,7 @@ import Button from '@/components/Button';
 import { motion } from 'framer-motion'
 
 interface PageProps {
-    onLoginSuccessful: (username: string, password: string) => void
+    login: (username: string, password: string) => void
 }
 
 const Login = (props: PageProps) => {
@@ -13,18 +13,9 @@ const Login = (props: PageProps) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME;
-    const PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-
     const handleLogin = () => {
-        if (loginAttempt.current <= 5)
-            if (username === USERNAME && password === PASSWORD) {
-                console.log("Login Successful")
-                props.onLoginSuccessful(username, password)
-            } else {
-                console.log('Invalid Login Attempt');
-                loginAttempt.current++;
-            }
+        if (loginAttempt.current++ <= 5)
+            props.login(username, password)
         else
             console.log("You have tried Max Attemps")
     };
