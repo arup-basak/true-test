@@ -11,9 +11,10 @@ const Admin = () => {
         setLogin(isLoginSuccessful === "true");
     }, []);
 
-    const handleLoginSuccessful = () => {
+    const handleLoginSuccessful = (username: string, password: string) => {
         setLogin(true);
-        secureLocalStorage.setItem("is-login-successful", "true");
+        secureLocalStorage.setItem("login-username", username);
+        secureLocalStorage.setItem("login-password", password);
     };
 
     if (!login) {

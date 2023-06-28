@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Component
         {...pageProps}
       />
-      {!router.pathname.includes("/report/") &&
+      {!(router.pathname.includes("/report/") || router.pathname.includes("/admin")) &&
         <Footer />
       }
     </main>

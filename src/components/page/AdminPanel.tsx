@@ -27,9 +27,9 @@ const AdminPanel = () => {
             <Head>
                 <title>Admin</title>
             </Head>
-            <div className='m-auto w-3/5'>
+            <div className='m-auto w-3/5 h-screen'>
                 {data?.map((item, key) => (
-                    <MinReportCard data={item} key={key} />
+                    <MinReportCard data={item} key={key} id={key} />
                 ))}
             </div>
         </>
