@@ -2,8 +2,9 @@ import { Report } from '@/libs/interface'
 import React from 'react'
 import Button from '@/components/Button'
 import { useRouter } from 'next/router'
-import ImageButton from './ImageButton'
+import ImageButton from '@/components/ImageButton'
 import edit_icon from 'public/edit.svg'
+import Status from './Status'
 
 interface ReportProp {
     data: Report,
@@ -20,6 +21,7 @@ const MinReportCard = (
                 {`${id + 1}. ${data.patientDetails.find((item) => item.key === "Name")?.value}`}
             </div>
             <div className='flex items-center'>
+                <Status status={data.status}/>
                 <ImageButton
                     src={edit_icon}
                     altText='Edit Icon'
