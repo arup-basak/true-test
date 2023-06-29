@@ -18,11 +18,16 @@ const LinkNavButton = ({ innerText, href = `/${innerText.toLowerCase()}`, }: Pro
 
     return (
         <Link href={href}>
-            <motion.div 
+            <motion.div
                 whileHover={{
-                    
+
                 }}
-                className={`p-1 px-4 transition rounded-full font-medium ${active ? "bg-slate-300 text-black" : "hover:text-slate-300"}`}>
+                className={
+                    `mobile:p-2 mobile:border-b 
+                    tablet:border-none tablet:p-1 
+                    px-4 text-center transition font-medium border-slate-400 border-opacity-40
+                    ${active ? "bg-slate-300 text-black" : "hover:text-slate-300"}`
+                }>
                 {innerText}
             </motion.div>
         </Link>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Login from '@/components/page/Login';
-import AdminPanel from '@/components/page/AdminPanel';
+import Login from '@/components/pages/Login';
+import AdminPanel from '@/components/pages/AdminPanel';
 
 const Admin = () => {
   const [login, setLogin] = useState(false);

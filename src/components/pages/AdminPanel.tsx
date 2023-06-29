@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Report } from '@/libs/interface';
-import MinReportCard from '@/components/AdminPanel/MinReportCard';
+import MinReportCard from '@/components/admin/MinReportCard';
 import axios from 'axios';
 import filter_icon from 'public/filter.svg'
 import add_icon from 'public/add.svg'
