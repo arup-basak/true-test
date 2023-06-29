@@ -30,7 +30,7 @@ const AdminPanel = () => {
             <Head>
                 <title>Admin</title>
             </Head>
-            <div className='m-auto w-3/5 h-screen'>
+            <div className='m-auto mobile:w-full tablet:w-3/5 h-screen'>
                 <ImageButton
                     src={add_icon}
                     altText='add'

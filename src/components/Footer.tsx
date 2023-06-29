@@ -4,7 +4,7 @@ import facebook_icon from 'public/facebook.svg'
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-[#08223a] text-gray-300">
       <div className="tablet:container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 tablet:grid-cols-4 gap-8">
           <div className="col-span-2 tablet:col-span-1">
