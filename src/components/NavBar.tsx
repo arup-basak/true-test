@@ -27,12 +27,12 @@ const NavBar = () => {
         <Link href="/">
           <motion.div
             whileHover={{
-              scale: 1.3
+              scale: 1.2
             }}
             whileTap={{
               scale: 0.9
             }}
-            className='text-2xl'>
+            className='text-2xl mobile:mx-2 tablet:mx-0'>
             TrueTest
           </motion.div>
         </Link>
