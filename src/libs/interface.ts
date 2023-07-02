@@ -44,7 +44,7 @@ export interface Report {
 
 export interface ReportResult {
     testName: string,
-    result: number,
+    result: string,
     unit: string,
-    referenceRange: string
+    referenceRange: string,
 }

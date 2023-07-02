@@ -2,18 +2,27 @@ import React, { useRef, useState } from 'react';
 import Head from 'next/head';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import DateTimePicker from '@/components/DateTimePicker';
 import { generateRandomNumber } from '@/libs/lib';
 import { Report, PatientDetails, ReportDetails, ReportResult } from '@/libs/interface';
 import axios from 'axios';
+import InsertTestReport from '@/components/InsertTestReport';
 
 const Add = () => {
-  const [id, setId] = useState<number>(generateRandomNumber());
+  const id = generateRandomNumber()
+
+  const [totalResult, setTotalResult] = useState(0)
+
+  const emptyResult: ReportResult = {
+    testName: "",
+    result: "",
+    unit: "",
+    referenceRange: ""
+  }
 
   const ref = useRef<Report>({
     patientId: id.toString(),
     patientDetails: {
-      "Patient Id": 0,
+      "Patient Id": id,
       "Patient Name": '',
       "Age": 0,
       "Referred By": '',
@@ -30,17 +39,17 @@ const Add = () => {
     cost: 0,
     response: false,
   });
-  
-  const handleAddTestReport = (result: ReportResult) => {
-    ref.current.testResults.push(result);
+
+  const handleAddTestReport = () => {
+    ref.current.testResults.push(emptyResult);
   };
-  
+
   const handleChange = (path: string, value: string | number | boolean) => {
     const pathArr = path.split('.');
-  
+
     if (pathArr.length === 2) {
       ((ref.current[pathArr[0]]) as PatientDetails | ReportDetails)[pathArr[1]] = value
-    } 
+    }
     else {
       ref.current[pathArr[0] as keyof Report] = value;
     }
@@ -50,7 +59,7 @@ const Add = () => {
     const response = await axios.post('/api/admin/add', ref.current);
     console.log(response.data.success)
   }
-  
+
   return (
     <>
       <Head>
@@ -103,13 +112,31 @@ const Add = () => {
             value={ref.current.reportDetails["Client Group"]}
             onChange={e => handleChange("reportDetails.Client Group", e.target.value)}
           />
-          <Button
-            innerText="Save as Draft"
-            className="m-2"
-            onClick={handleAddDraft}
-            animation={true}
-          />
         </div>
+        {Array.from({ length: totalResult }, (v, index) => (
+          <div key={String(index)}>
+            <InsertTestReport
+              onChange={(e) => {
+                ref.current.testResults[index] = e
+              }}
+            />
+          </div>
+        ))}
+
+        <Button
+          innerText="Add"
+          className="m-2"
+          onClick={() => {
+            setTotalResult(totalResult + 1)
+          }}
+          animation={true}
+        />
+        <Button
+          innerText="Save as Draft"
+          className="m-2"
+          onClick={handleAddDraft}
+          animation={true}
+        />
       </main>
     </>
   );

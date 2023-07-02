@@ -2,12 +2,14 @@ import { motion, Variants } from 'framer-motion';
 import { useState, ChangeEvent, KeyboardEvent } from 'react';
 
 interface InputProps {
+  id?: string
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   placeholder?: string;
   label?: string;
   type?: "text" | "password" | 'number';
   className?: string;
+  labelClassName?: string
   maxLen?: number;
   onEnterClick?: () => void;
   autoFocus?: boolean;
@@ -20,12 +22,14 @@ const inputVariants: Variants = {
 };
 
 const Input = ({
+  id = "input",
   onChange,
   value = '',
   placeholder,
   label,
   type = "text",
   className,
+  labelClassName,
   maxLen = 99,
   onEnterClick,
   active = true,
@@ -51,12 +55,12 @@ const Input = ({
   return (
     <motion.div initial="hidden" animate="visible" variants={inputVariants}>
       {label && (
-        <label htmlFor="input" className="block font-medium mb-1">
+        <label htmlFor={id} className={`block font-medium mb-1 ${labelClassName}`}>
           {label}
         </label>
       )}
       <motion.input
-        id="input"
+        id={id}
         type={type}
         className={`px-4 py-2 border border-gray-300 rounded-md sm:w-64 md:w-96 m-1 ${className}`}
         onKeyDown={onHandleKeyDown}
