@@ -11,6 +11,7 @@ interface InputProps {
   maxLen?: number;
   onEnterClick?: () => void;
   autoFocus?: boolean;
+  active?: boolean
 }
 
 const inputVariants: Variants = {
@@ -27,14 +28,17 @@ const Input = ({
   className,
   maxLen = 99,
   onEnterClick,
+  active = true,
   autoFocus = false
 }: InputProps) => {
   const [inputValue, setInputValue] = useState(value);
 
   const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    if (onChange) {
-      onChange(e);
+    if(active) {
+      setInputValue(e.target.value);
+      if (onChange) {
+        onChange(e);
+      }
     }
   };
 

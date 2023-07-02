@@ -20,7 +20,7 @@ export interface PatientDetails {
     "Age": number,
     "Referred By": string,
     "BarcodeNo": number
-    [key: string]: string | number;
+    [key: string]: string | number | boolean;
 }
 
 export interface ReportDetails {
@@ -28,17 +28,18 @@ export interface ReportDetails {
     "Received Time": string,
     "Approved Time": string,
     "Client Group": string
+    [key: string]: string | number | boolean;
 }
 
 export interface Report {
-    patientId: number,
+    patientId: string,
     patientDetails: PatientDetails
     reportDetails: ReportDetails
-    testResults: ReportResult,
+    testResults: ReportResult[],
     status: "draft" | "success" | "payment-required" | "failed",
     cost: number,
     response: boolean
-    [key: string]: string | number | boolean | PatientDetails | ReportDetails | ReportResult,
+    [key: string]: string | number | boolean | PatientDetails | ReportDetails | ReportResult | ReportResult[],
 }
 
 export interface ReportResult {

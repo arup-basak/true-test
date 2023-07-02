@@ -22,7 +22,7 @@ const RadioGroup = (props: RadioGroupProps) => {
         <motion.div
           key={key}
           onClick={() => handleItemClick(key)}
-          className={`text-sm p-2 m-1 rounded cursor-pointer ${
+          className={`text-sm p-2 m-1 rounded cursor-pointer select-none ${
             active === key ? 'bg-green-500 text-white' : 'hover:bg-slate-200'
           }`}
           whileTap={{ scale: 0.95 }}
