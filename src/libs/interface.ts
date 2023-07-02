@@ -14,11 +14,27 @@ export interface Table {
     value: string
 }
 
+export interface PatientDetails {
+    "Patient Id": number,
+    "Patient Name": string,
+    "Age": number,
+    "Referred By": string,
+    "BarcodeNo": number
+    [key: string]: string | number;
+}
+
+export interface ReportDetails {
+    "Sample Collection Time": string,
+    "Received Time": string,
+    "Approved Time": string,
+    "Client Group": string
+}
+
 export interface Report {
     patientId: number,
-    patientDetails: Table[]
-    reportDetails: Table[]
-    testResults: ReportResult[],
+    patientDetails: PatientDetails
+    reportDetails: ReportDetails
+    testResults: ReportResult,
     status: "draft" | "success" | "payment-required" | "failed",
     cost: number,
     response: boolean

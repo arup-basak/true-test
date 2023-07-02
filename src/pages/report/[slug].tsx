@@ -1,144 +1,138 @@
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { useRouter } from 'next/router';
-import { useEffect, useState, useRef } from 'react';
-import { jsPDF } from "jspdf";
-import ReportComponent from '@/components/Report';
-import { Report } from '@/libs/interface'
+import { ReportResult } from '@/libs/interface';
 import Button from '@/components/Button';
+import { Report } from '@/libs/interface';
+import axios from 'axios';
 
-const Post = () => {
+
+const ReportApp = () => {
     const router = useRouter();
     const { slug } = router.query;
-    const [data, setData] = useState<Report>({
-        patientId: 0,
-        patientDetails: [],
-        reportDetails: [],
-        testResults: [],
-        status: "failed",
-        cost: 0,
-        response: false
-    });
-    const [loading, setLoading] = useState(true);
+    const { asPath } = useRouter();
+    const origin =
+        typeof window !== 'undefined' && window.location.origin
+            ? window.location.origin
+            : '';
 
-    const pdfRef = useRef(null);
+    const URL = `${origin}${asPath}`;
 
-    const handleGeneratePdfClick = (
-        patientName: string
-    ) => {
-        const content = pdfRef.current || "No Data";
-        const doc = new jsPDF("p", "px", "a4", true);
-        doc.html(content, {
-            html2canvas: {
-                allowTaint: true,
-                useCORS: true,
-                scale: 0.31
-            },
-            callback: function (doc) {
-                doc.save(`${patientName.replace(" ", "_")}_${slug}.pdf`);
-            }
-        });
-    }
+    const [data, setData] = useState<Report>()
+
+    const [patientDetails, setPatientDetails] = useState<string[][]>([]);
+    const [reportDetails, setReportDetails] = useState<string[][]>([]);
+    const [testResult, setTestResult] = useState<string[][]>([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const url = `/api/reports?id=${slug}`;
-                const response = await fetch(url);
-                const jsonData = await response.json();
-                setData(jsonData);
-                setLoading(false);
+                if (slug) {
+                    const response = await axios.post(`/api/report?id=${slug}`);
+                    if (response.data.status === 'success') {
+                        setData(response.data)
+                        const pDetails = response.data.patientDetails
+                        const rDetails = response.data.reportDetails
+                        const tResults = response.data.testResults
+
+                        const pData: string[][] = Object.entries(pDetails as Record<string, string>).reduce((acc, [key, value]) => {
+                            acc.push([key.toString(), value.toString()]);
+                            return acc;
+                        }, [] as string[][]);
+                        setPatientDetails(pData);
+
+                        const tData: string[][] = Object.entries(rDetails as Record<string, string>).reduce((acc, [key, value]) => {
+                            acc.push([key.toString(), value.toString()]);
+                            return acc;
+                        }, [] as string[][]);
+                        setReportDetails(tData);
+
+                        const rData: string[][] = tResults.map((item: ReportResult) => [
+                            item.testName,
+                            String(item.result),
+                            item.unit,
+                            item.referenceRange
+                        ]);
+
+                        setTestResult([['TEST NAME', 'VALUE', 'UNIT', 'REFERENCE'], ...rData]);
+                    }
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
-                setLoading(false);
             }
+
         };
 
-        if (slug) {
-            fetchData();
-        }
+        fetchData();
     }, [slug]);
 
-    if (loading) {
-        return (
-            <>
-                <Head>
-                    <title>Loading...</title>
-                </Head>
-                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-3xl'>
-                    Loading...
-                </div>
-            </>
-        );
-    }
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    pdfMake.fonts = {
+        Roboto: {
+            normal: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+            bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
+            italics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
+            bolditalics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf'
+        },
+    };
 
-    if(data.response == false) 
-        return (
-            <>
-                <Head>
-                    <title>Not Found</title>
-                </Head>
-                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
-                    No Data Found
-                </div>
-            </>
-        )
+    const doc = {
+        content: [
+            {
+                table: {
+                    headerRows: 0,
+                    widths: ['*', '*'],
+                    body: [
+                        [
+                            {
+                                table: {
+                                    headerRows: 1,
+                                    widths: ['*', '*'],
+                                    body: patientDetails
+                                }
+                            },
+                            {
+                                table: {
+                                    headerRows: 1,
+                                    widths: ['*', '*'],
+                                    body: reportDetails
+                                }
+                            }
+                        ]
+                    ]
+                }
+            },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: ['*', '*', '*', '*'],
+                    body: testResult
+                }
+            },
+            { qr: URL },
+        ]
+    };
 
-    if (data.status === "success")
-        return (
-            <main>
-                <Head>
-                    <title>Report</title>
-                </Head>
-                <div className=''>
-                    <div className='tablet:m-auto mobile:w-full tablet:w-3/4 py-3 pt-5'>
-                        <Button
-                            onClick={() => handleGeneratePdfClick(data.patientId.toString())}
-                            innerText={'Generate PDF'}
-                        />
-                    </div>
-                    <div className='tablet:m-auto tablet:w-3/4 transform origin-top tablet:scale-[.7] mobile:scale-[.4]'>
-                        <div ref={pdfRef}>
-                            <ReportComponent data={data} />
-                        </div>
-                    </div>
-                </div>
-            </main>
-        );
-
-    if (data.status === "draft")
-        return (
-            <>
-                <Head>
-                    <title>On The Way</title>
-                </Head>
-                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
-                    Your Report is On the Way...
-                </div>
-            </>
-        )
-
-    if (data.status === "failed")
-        return (
-            <>
-                <Head>
-                    <title>Failed</title>
-                </Head>
-                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
-                    Your Report Failed
-                </div>
-            </>
-        )
+    const handleOnClick = () => {
+        pdfMake.createPdf(doc).download();
+    };
 
     return (
-        <>
+        <main>
             <Head>
-                <title>Payment Required</title>
+                <title>ReportApp</title>
             </Head>
-            <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-3xl text-red-500'>
-                Please Pay the Amount of {data.cost} to Download the Report
+            <div>
+                <Button
+                    innerText='Download'
+                    onClick={handleOnClick}
+                />
             </div>
-        </>
-    )
+        </main>
+    );
 };
 
-export default Post;
+export default ReportApp;

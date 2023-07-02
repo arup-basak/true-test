@@ -10,12 +10,10 @@ import ImageButton from '../ImageButton';
 const AdminPanel = () => {
     const [data, setData] = useState<Report[]>();
 
-    const [filter, setFilter] = useState({})
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('/api/admin/data', filter);
+                const response = await axios.post('/api/admin/reports');
                 setData(response.data);
             } catch (error) {
                 console.error(error);
@@ -23,7 +21,7 @@ const AdminPanel = () => {
         };
 
         fetchData();
-    }, []);
+    }, [setData]);
 
     return (
         <>
@@ -34,7 +32,7 @@ const AdminPanel = () => {
                 <ImageButton
                     src={add_icon}
                     altText='add'
-                    onClick={() => {}}
+                    onClick={() => { }}
                     text='Add Report'
                     className='px-4 bg-red-200 fixed bottom-0 left-0 hidden'
                     size={18}
@@ -48,7 +46,7 @@ const AdminPanel = () => {
                         className='px-4'
                     />
                 </div>
-                <div>
+                <div className='px-3'>
                     {data?.map((item, key) => (
                         <MinReportCard data={item} key={key} id={key} />
                     ))}

@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
-import { jsPDF } from "jspdf";
-import ReportComponent from '@/components/Report';
+// import { jsPDF } from "jspdf";
+import ReportComponent from '@/components/report/Report';
 import { Report } from '@/libs/interface'
 import Button from '@/components/Button';
 import axios from 'axios';
@@ -11,15 +11,7 @@ import secureLocalStorage from "react-secure-storage";
 const Post = () => {
     const router = useRouter();
     const { slug } = router.query;
-    const [data, setData] = useState<Report>({
-        patientId: 0,
-        patientDetails: [],
-        reportDetails: [],
-        testResults: [],
-        status: "failed",
-        cost: 0,
-        response: false
-    });
+    const [data, setData] = useState<Report>();
     const [loading, setLoading] = useState(true);
 
     const pdfRef = useRef(null);
@@ -28,17 +20,17 @@ const Post = () => {
         patientName: string
     ) => {
         const content = pdfRef.current || "No Data";
-        const doc = new jsPDF("p", "px", "a4", true);
-        doc.html(content, {
-            html2canvas: {
-                allowTaint: true,
-                useCORS: true,
-                scale: 0.31
-            },
-            callback: function (doc) {
-                doc.save(`${patientName.replace(" ", "_")}_${slug}.pdf`);
-            }
-        });
+        // const doc = new jsPDF("p", "px", "a4", true);
+        // doc.html(content, {
+        //     html2canvas: {
+        //         allowTaint: true,
+        //         useCORS: true,
+        //         scale: 0.31
+        //     },
+        //     callback: function (doc) {
+        //         doc.save(`${patientName.replace(" ", "_")}_${slug}.pdf`);
+        //     }
+        // });
     }
 
 
@@ -75,17 +67,17 @@ const Post = () => {
         );
     }
 
-    if (data.response == false)
-        return (
-            <>
-                <Head>
-                    <title>Not Found</title>
-                </Head>
-                <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
-                    No Data Found
-                </div>
-            </>
-        )
+    // if (data.response == false)
+    //     return (
+    //         <>
+    //             <Head>
+    //                 <title>Not Found</title>
+    //             </Head>
+    //             <div className='flex tablet:items-center justify-center min-h-[90vh] tablet:text-2xl'>
+    //                 No Data Found
+    //             </div>
+    //         </>
+    //     )
     return (
         <main>
             <Head>
@@ -94,7 +86,7 @@ const Post = () => {
             <div className=''>
                 <div className='tablet:m-auto mobile:w-full tablet:w-3/4 py-3 pt-5'>
                     <Button
-                        onClick={() => handleGeneratePdfClick(data.patientId.toString())}
+                        onClick={() => {}}
                         innerText={'Generate PDF'}
                     />
                 </div>

@@ -21,10 +21,7 @@ const EditPanel = () => {
         const fetchData = async () => {
             try {
                 if (pid) {
-                    const response = await axios.post(`/api/reports?id=${pid}`, {
-                        "username": secureLocalStorage.getItem("login-username"),
-                        "password": secureLocalStorage.getItem("login-username")
-                    });
+                    const response = await axios.post(`/api/admin/reports?patientId=${pid}`);
 
                     const jsonData = response.data;
                     if (jsonData.status !== 'error')
@@ -44,34 +41,21 @@ const EditPanel = () => {
                 <title>Edit</title>
             </Head>
             <div>
-                <div className='flex'>
-                    <div>
-                        {
-                            data?.patientDetails.map((item, key) => {
+                <div>
+                    {data?.patientDetails && (
+                        <ul>
+                            {Object.keys(data.patientDetails).map((key: string) => {
+
                                 return (
                                     <Input
                                         key={key}
-                                        label={item.key}
-                                        value={item.value}
-                                        onChange={() => onHandleChange()}
+                                        label={key}
+                                        value={String(data.patientDetails[key])}
                                     />
-                                );
-                            })
-                        }
-                    </div>
-                    <div>
-                        {
-                            data?.reportDetails.map((item, key) => {
-                                return (
-                                    <Input
-                                        key={key}
-                                        label={item.key}
-                                        value={item.value}
-                                    />
-                                );
-                            })
-                        }
-                    </div>
+                                )
+                            })}
+                        </ul>
+                    )}
                 </div>
                 <div>
                     <Button
