@@ -38,6 +38,7 @@ export interface Report {
     status: "draft" | "success" | "payment-required" | "failed",
     cost: number,
     response: boolean
+    [key: string]: string | number | boolean | PatientDetails | ReportDetails | ReportResult,
 }
 
 export interface ReportResult {

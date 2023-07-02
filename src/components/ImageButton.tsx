@@ -13,7 +13,7 @@ interface ImageButtonProps {
 const ImageButton: React.FC<ImageButtonProps> = ({ src, altText, onClick, text, className, size=24 }) => {
     return (
         <button
-            className={`image-button relative overflow-hidden border border-transparent rounded-full transition-all duration-300 focus:outline-none p-2 mx-2 flex items-center ${className}`}
+            className={`${className} image-button relative overflow-hidden border border-transparent rounded-full transition-all duration-300 focus:outline-none p-2 mx-2 flex items-center`}
             onClick={onClick}
         >
             <Image

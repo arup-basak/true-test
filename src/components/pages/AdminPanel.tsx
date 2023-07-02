@@ -7,8 +7,15 @@ import filter_icon from 'public/filter.svg'
 import add_icon from 'public/add.svg'
 import ImageButton from '../ImageButton';
 
+interface FilterInterface {
+    key: string,
+    value: string
+}
+
 const AdminPanel = () => {
     const [data, setData] = useState<Report[]>();
+    const [filter, setFilter] = useState<FilterInterface | null>();
+    const [viewData, setViewData] = useState<Report[]>();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,31 +30,49 @@ const AdminPanel = () => {
         fetchData();
     }, [setData]);
 
+    useEffect(() => {
+        if (!data) {
+            return;
+        }
+
+        if (!filter)
+            setViewData(data);
+        else {
+            const filteredData = data.filter((item) => item[filter.key] === filter.value);
+            setViewData(filteredData);
+            console.log(viewData)
+        }
+    }, [data, filter]);
+
     return (
         <>
             <Head>
                 <title>Admin</title>
             </Head>
             <div className='m-auto mobile:w-full tablet:w-3/5 h-screen'>
-                <ImageButton
-                    src={add_icon}
-                    altText='add'
-                    onClick={() => { }}
-                    text='Add Report'
-                    className='px-4 bg-red-200 fixed bottom-0 left-0 hidden'
-                    size={18}
-                />
+                <div className='fixed top-24 left-10'>
+                    <ImageButton
+                        src={add_icon}
+                        altText='add'
+                        onClick={() => { }}
+                        text='Add Report'
+                        className='px-4 shadow'
+                        size={18}
+                    />
+                </div>
                 <div className='flex justify-end my-2'>
                     <ImageButton
                         src={filter_icon}
                         altText='filter'
-                        onClick={() => { }}
+                        onClick={() => { 
+                            setFilter({ key: "status", value: "draft" }) 
+                        }}
                         text='Filter'
                         className='px-4'
                     />
                 </div>
                 <div className='px-3'>
-                    {data?.map((item, key) => (
+                    {viewData?.map((item, key) => (
                         <MinReportCard data={item} key={key} id={key} />
                     ))}
                 </div>
