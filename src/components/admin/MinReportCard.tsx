@@ -71,7 +71,7 @@ const MinReportCard = (
                     )
                 }
                 <Status 
-                    key={data.patientDetails['Patient_Id']}
+                    key={String(data.patientDetails['Patient Id'])}
                     status={status} />
                 <ImageButton
                     src={edit_icon}
