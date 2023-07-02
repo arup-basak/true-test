@@ -5,11 +5,13 @@ const Status = ({ status }: { status: string }) => {
     'success': 'border-green-900 bg-green-500',
     'payment-required': 'border-red-900 bg-red-500',
     'draft': 'border-yellow-900 bg-yellow-500',
+    'failed': 'border-violet-900 bg-violet-500',
   };
   const statusStrings: Record<string, string> = {
     'success': 'Success',
     'payment-required': 'Payment Required',
     'draft': 'Draft',
+    'failed': "Failed"
   };
 
   const color = statusColors[status] || '';

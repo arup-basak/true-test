@@ -70,7 +70,9 @@ const MinReportCard = (
                         <PaymentDoneButton onClick={handleOnClick} />
                     )
                 }
-                <Status status={status} />
+                <Status 
+                    key={data.patientDetails['Patient Id']}
+                    status={status} />
                 <ImageButton
                     src={edit_icon}
                     altText='Edit Icon'
