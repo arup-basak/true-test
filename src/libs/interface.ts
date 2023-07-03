@@ -47,4 +47,5 @@ export interface ReportResult {
     result: string,
     unit: string,
     referenceRange: string,
+    // interpretation: string
 }

@@ -25,11 +25,11 @@ const MinReportCard = (
     const handleOnClick = async () => { // Not Working
         const ref = collection(db, "reports");
         const q = query(ref, where("patientId", "==", data.patientDetails['Patient Id']));
-    
+
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
             const docRef = querySnapshot.docs[0].ref;
-    
+
             await updateDoc(docRef, { status: "success" })
                 .then(() => {
                     console.log("success");
@@ -40,22 +40,22 @@ const MinReportCard = (
                 });
         }
     };
-    
-      
-        
-        // const querySnapshot = await getDocs(q);
-        // querySnapshot.forEach(async (doc) => {
-        //     const docRef = doc.ref;
-        //     const documentSnapshot = await getDoc(docRef);
 
-        //     if (documentSnapshot.exists()) {
-        //         const updatedData = { status: "success" };
-        //         await setDoc(docRef, updatedData, { merge: true });
-        //         setStatus("success")
-        //     } else {
-        //         console.log("Document not found.");
-        //     }
-        // });
+
+
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach(async (doc) => {
+    //     const docRef = doc.ref;
+    //     const documentSnapshot = await getDoc(docRef);
+
+    //     if (documentSnapshot.exists()) {
+    //         const updatedData = { status: "success" };
+    //         await setDoc(docRef, updatedData, { merge: true });
+    //         setStatus("success")
+    //     } else {
+    //         console.log("Document not found.");
+    //     }
+    // });
 
     // }
 
@@ -67,20 +67,23 @@ const MinReportCard = (
             <div className='flex items-center'>
                 {
                     status === 'payment-required' && (
-                        <PaymentDoneButton onClick={handleOnClick} />
+                        // <PaymentDoneButton onClick={handleOnClick} />
+                        <></>
                     )
                 }
-                <Status 
+                {/* <Status 
                     key={String(data.patientDetails['Patient Id'])}
-                    status={status} />
+                    status={status} /> */}
                 <ImageButton
                     src={edit_icon}
                     altText='Edit Icon'
+                    size={18}
                     onClick={() => { push(`/admin/edit/${data.patientId}`) }}
                 />
                 <Button
                     innerText='Get Report'
-                    onClick={() => push(`/admin/report/${data.patientId}`)} />
+                    className='whitespace-nowrap'
+                    onClick={() => push(`/report/${data.patientId}`)} />
             </div>
         </div>
     )

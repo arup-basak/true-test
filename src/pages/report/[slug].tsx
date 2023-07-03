@@ -3,10 +3,11 @@ import Head from 'next/head';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { useRouter } from 'next/router';
-import { ReportResult } from '@/libs/interface';
 import Button from '@/components/Button';
 import { Report } from '@/libs/interface';
 import axios from 'axios';
+import { generateDoc } from '@/libs/pdf'
+import PDFViewer from '@/components/PdfViewer';
 
 
 const ReportApp = () => {
@@ -20,12 +21,26 @@ const ReportApp = () => {
 
     const URL = `${origin}${asPath}`;
 
-    const [data, setData] = useState<Report>()
-
-    const [patientDetails, setPatientDetails] = useState<string[][]>([]);
-    const [reportDetails, setReportDetails] = useState<string[][]>([]);
-    const [testResult, setTestResult] = useState<string[][]>([]);
-
+    const [data, setData] = useState<Report>({
+        patientId: '',
+        patientDetails: {
+            "Patient Id": 0,
+            "Patient Name": '',
+            "Age": 0,
+            "Referred By": '',
+            "BarcodeNo": 0,
+        },
+        reportDetails: {
+            "Sample Collection Time": '',
+            "Received Time": '',
+            "Approved Time": '',
+            "Client Group": '',
+        },
+        testResults: [],
+        status: 'draft',
+        cost: 0,
+        response: false,
+    })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,30 +49,10 @@ const ReportApp = () => {
                     const response = await axios.post(`/api/report?id=${slug}`);
                     if (response.data.status === 'success') {
                         setData(response.data)
-                        const pDetails = response.data.patientDetails
-                        const rDetails = response.data.reportDetails
-                        const tResults = response.data.testResults
-
-                        const pData: string[][] = Object.entries(pDetails as Record<string, string>).reduce((acc, [key, value]) => {
-                            acc.push([key.toString(), value.toString()]);
-                            return acc;
-                        }, [] as string[][]);
-                        setPatientDetails(pData);
-
-                        const tData: string[][] = Object.entries(rDetails as Record<string, string>).reduce((acc, [key, value]) => {
-                            acc.push([key.toString(), value.toString()]);
-                            return acc;
-                        }, [] as string[][]);
-                        setReportDetails(tData);
-
-                        const rData: string[][] = tResults.map((item: ReportResult) => [
-                            item.testName,
-                            String(item.result),
-                            item.unit,
-                            item.referenceRange
-                        ]);
-
-                        setTestResult([['TEST NAME', 'VALUE', 'UNIT', 'REFERENCE'], ...rData]);
+                        const pdf = pdfMake.createPdf(generateDoc(data, URL));
+                        pdf.getBlob((blob: Blob) => {
+                            setBlob(blob)
+                        })
                     }
                 }
             } catch (error) {
@@ -79,45 +74,16 @@ const ReportApp = () => {
         },
     };
 
-    const doc = {
-        content: [
-            {
-                table: {
-                    headerRows: 0,
-                    widths: ['*', '*'],
-                    body: [
-                        [
-                            {
-                                table: {
-                                    headerRows: 1,
-                                    widths: ['*', '*'],
-                                    body: patientDetails
-                                }
-                            },
-                            {
-                                table: {
-                                    headerRows: 1,
-                                    widths: ['*', '*'],
-                                    body: reportDetails
-                                }
-                            }
-                        ]
-                    ]
-                }
-            },
-            {
-                table: {
-                    headerRows: 1,
-                    widths: ['*', '*', '*', '*'],
-                    body: testResult
-                }
-            },
-            { qr: URL },
-        ]
-    };
+
+    const [blob, setBlob] = useState<Blob>();
+
 
     const handleOnClick = () => {
-        pdfMake.createPdf(doc).download();
+        if (data.response) {
+            pdfMake.createPdf(generateDoc(data, URL)).download()
+        }
+        else
+            console.log("No Data")
     };
 
     return (
@@ -130,6 +96,13 @@ const ReportApp = () => {
                     innerText='Download'
                     onClick={handleOnClick}
                 />
+                {
+                    blob && (
+                        <div className='w-fit mx-auto'>
+                            <PDFViewer blobData={blob} />
+                        </div>
+                    )
+                }
             </div>
         </main>
     );

@@ -18,7 +18,7 @@ const Status = ({ status }: { status: string }) => {
   const statusString = statusStrings[status] || '';
 
   return (
-    <div className={`text-xs select-none border rounded p-1 ${color} text-white`}>
+    <div className={`text-[14px] tablet:text-xs select-none border rounded p-1 ${color} whitespace-nowrap text-white scale-75`}>
       {statusString}
     </div>
   );

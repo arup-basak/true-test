@@ -25,7 +25,7 @@ const Login = (props: PageProps) => {
             <Head>
                 <title>Login</title>
             </Head>
-            <div className='h-screen w-full flex items-center justify-center select-none'>
+            <div className='h-screen w-full flex items-center justify-center select-none bg-white'>
                 <motion.div 
                     animate={{
                         opacity: 1
@@ -33,20 +33,22 @@ const Login = (props: PageProps) => {
                     transition={{
                         delay: 0.2
                     }}
-                    className="p-6 rounded-md shadow-lg flex flex-col justify-center border-blue-900 opacity-0">
+                    className="p-6 rounded-md shadow-lg flex flex-col justify-center border-blue-900 opacity-0 bg-white">
                     <span className='text-xl text-center p-4'>
                         Admin Login
                     </span>
                     <Input
                         label="Username"
-                        className="min-w-[300px]"
+                        className="min-w-[250px] tablet:min-w-[300px]"
+                        labelClassName='ml-1'
                         maxLen={10}
                         onChange={(e) => setUsername(e.target.value)}
-                    />
+                        />
                     <Input
                         type="password"
                         label="Password"
-                        className="min-w-[300px]"
+                        className="min-w-[250px] tablet:min-w-[300px]"
+                        labelClassName='ml-1'
                         maxLen={10}
                         onChange={(e) => setPassword(e.target.value)}
                     />
