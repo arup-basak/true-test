@@ -7,15 +7,15 @@ const HomePage = () => {
   const dataArray: LabProps[] = [
     {
       labName: "Lab C",
-      labLocation: "Location C"
+      labLocationLink: "https://goo.gl/maps/rDRUbsE7U1mpB5dt9"
     },
     {
       labName: "Lab D",
-      labLocation: "Location D"
+      labLocationLink: "https://goo.gl/maps/E11mWJ5wEEtZewr89"
     },
     {
       labName: "Lab E",
-      labLocation: "Location E"
+      labLocationLink: "https://goo.gl/maps/qekgNotpUPt7oLA76"
     }
   ];
   return (
@@ -23,11 +23,15 @@ const HomePage = () => {
       <Head>
         <title>Labs</title>
       </Head>
-      <div className='h-screen'>
+      <div className='h-screen bg-black text-[#F2CC8F]'>
         <div className='p-6 text-3xl m-auto w-max'>Visit our Labs</div>
         <div className='grid desktop:grid-cols-2 tablet:grid-cols-2 mobile:grid-cols-1 m-auto w-3/5 gap-2 p-2'>
           {dataArray.map((lab, index) => (
-            <LabComponent key={index} labName={lab.labName} labLocation={lab.labLocation} />
+            <LabComponent
+              key={index}
+              labName={lab.labName}
+              labLocationLink={lab.labLocationLink}
+            />
           ))}
         </div>
       </div>

@@ -62,7 +62,7 @@ const Input = ({
       <motion.input
         id={id}
         type={type}
-        className={`px-4 py-2 border border-gray-300 rounded-md sm:w-64 md:w-96 m-1 ${className}`}
+        className={`px-4 py-2 border-2 border-gray-300 bg-inherit rounded-md sm:w-64 md:w-96 m-1 outline-none focus:border-[#32db89] ${className}`}
         onKeyDown={onHandleKeyDown}
         onChange={onHandleChange}
         value={inputValue}

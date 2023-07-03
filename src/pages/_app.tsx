@@ -14,9 +14,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
   return (
     <main className={`flex flex-col ${figtree.className} bg-[#f4f1de]`}>
-      {/* {(router.pathname !== '/') && */}
-        <NavBar />
-      {/* } */}
+      <NavBar />
       <Component
         {...pageProps}
       />

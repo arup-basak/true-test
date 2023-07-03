@@ -6,7 +6,7 @@ export interface ProductProps {
 
 export interface LabProps {
     labName: string,
-    labLocation: string
+    labLocationLink: string
 }
 
 export interface Table {

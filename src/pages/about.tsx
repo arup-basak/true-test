@@ -32,33 +32,13 @@ const About = () => {
             <div className='m-auto w-full bg-[#F2CC8F] h-[1px] mobile:hidden tablet:block'></div>
           </div>
 
-          <div className={`mobile:text-3xl tablet:text-7xl my-5 py-2 w-fit text ${glass_antiqua.className}`}>
+          <div className={`mobile:text-3xl tablet:text-7xl my-5 py-2 w-fit text-center ${glass_antiqua.className}`}>
             Enhancing Lives Through Advanced Diagnostics
           </div>
           <div className='mobile:text-base my-5 tablet:text-xl py-5 text-center mobile:w-3/4 tablet:w-2/5'>
             True Test Diagnostics is a leading blood diagnostic center dedicated to providing exceptional healthcare services. With our state-of-the-art technology and experienced team, we deliver precise and reliable results to improve your health and well-being.
           </div>
           <div>
-          </div>
-          <div className='mobile:w-5/6 tablet:w-fit my-5 py-5 grid mobile:grid-cols-1 tablet:grid-cols-2 gap-2'>
-            <motion.button
-              whileHover={{
-                scale: 1.2
-              }}
-              whileTap={{
-                scale: 0.9
-              }}
-              className='bg-[#81b29a] text-black rounded-full py-2 px-4'
-              onClick={() => { push('/report') }}>Download Report</motion.button>
-            <motion.button
-              whileHover={{
-                scale: 1.1
-              }}
-              whileTap={{
-                scale: 0.9
-              }}
-              className='bg-white text-black rounded-full py-2 px-4 w-full'
-              onClick={() => { push('tel:+919732919663') }}>Call Now</motion.button>
           </div>
         </div>
       </div>
