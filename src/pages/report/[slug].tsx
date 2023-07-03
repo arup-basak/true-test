@@ -57,15 +57,17 @@ const ReportApp = () => {
 
         };
 
-        fetchData().then(() => {
-            if(data) {
-                const pdf = pdfMake.createPdf(generateDoc(data, URL));
-                pdf.getBlob((blob: Blob) => {
-                    setBlob(blob)
-                })
-            }
-        })
+        fetchData()
     }, [slug]);
+
+    useEffect(() => {
+        if (data.patientDetails['Patient Name'] !== '') {
+            const pdf = pdfMake.createPdf(generateDoc(data, URL));
+            pdf.getBlob((blob: Blob) => {
+                setBlob(blob)
+            })
+        }
+    }, [data])
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
     pdfMake.fonts = {
