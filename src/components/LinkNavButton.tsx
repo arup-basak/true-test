@@ -19,10 +19,10 @@ const LinkNavButton = ({ innerText, href = `/${innerText.toLowerCase()}`, }: Pro
         <Link href={href}>
             <div
                 className={
-                    `mobile:p-2 mobile:border-b 
+                    `mobile:p-2 mobile:border-
                     tablet:border-none tablet:p-1 
-                    px-4 text-center transition font-medium border-slate-400 border-opacity-40
-                    ${active ? "tablet:bg-slate-300 tablet::text-black" : "tablet:hover:text-slate-300"}`
+                    px-4 text-center transition font-medium border-slate-400 border-opacity-40 rounded  
+                    ${active ? "tablet:bg-slate-600 tablet:text-black" : "tablet:hover:text-slate-300"}`
                 }>
                 {innerText}
             </div>

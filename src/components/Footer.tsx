@@ -4,13 +4,13 @@ import facebook_icon from 'public/facebook.svg'
 
 const Footer = () => {
   return (
-    <footer className="bg-[#08223a] text-gray-300">
+    <footer className="bg-[#f4f1de] text-black">
       <div className="tablet:container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 tablet:grid-cols-4 gap-8">
           <div className="col-span-2 tablet:col-span-1">
             <h3 className="text-xl font-bold">TrueTest</h3>
-            <p className="mt-4">
-              Empowering Health through Advanced Diagnostics. Uncover the Truth. Discover Wellness. Trust our State-of-the-Art Diagnostic Center for Comprehensive and Precise Medical Evaluations, Guiding Your Path to Optimal Health.
+            <p className="mt-4 text-justify">
+              TrueTest ensures unparalleled accuracy in our diagnostic results, allowing you to be more confident in your healthcare decisions. Experience the assurance of advanced technology and expert technicians in our state-of-the-art facilities.
             </p>
           </div>
           <div className="col-span-2 tablet:col-span-1">
@@ -18,22 +18,22 @@ const Footer = () => {
             <ul className="mt-4">
               <li>
                 <Link href="/">
-                  <span className="text-gray-300 hover:text-white">Home</span>
+                  <span className="hover:text-gray-700">Home</span>
                 </Link>
               </li>
               <li>
                 <Link href="/about">
-                  <span className="text-gray-300 hover:text-white">About</span>
+                  <span className="hover:text-gray-700">About</span>
                 </Link>
               </li>
               <li>
                 <Link href="/labs">
-                  <span className="text-gray-300 hover:text-white">Labs</span>
+                  <span className="hover:text-gray-700">Labs</span>
                 </Link>
               </li>
               <li>
                 <Link href="/products">
-                  <span className="text-gray-300 hover:text-white">Products</span>
+                  <span className="hover:text-gray-700">Products</span>
                 </Link>
               </li>
             </ul>
@@ -54,12 +54,6 @@ const Footer = () => {
         <hr className="border-gray-700 mt-8" />
         <div className="text-center text-sm mt-8">
           <p>Copyright © 2023, True Test Diagnostics., All Rights Reserved Powered By: ARUP BASAK</p>
-          <p className="mt-2">
-            Designed and developed by{' '}
-            <Link href="/author">
-              <span className="text-gray-300 hover:text-white">ARUP BASAK</span>
-            </Link>
-          </p>
         </div>
       </div>
     </footer>
