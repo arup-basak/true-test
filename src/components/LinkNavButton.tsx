@@ -22,7 +22,7 @@ const LinkNavButton = ({ innerText, href = `/${innerText.toLowerCase()}`, }: Pro
                     `mobile:p-2 mobile:border-
                     tablet:border-none tablet:p-1 tablet:px-2
                     px-4 text-center transition font-medium border-slate-400 border-opacity-40 rounded  
-                    ${active ? "tablet:bg-[#ffffff36] tablet:text-black" : "tablet:hover:text-gray-300"}`
+                    ${active ? "tablet:bg-[#ffffff36] tablet:text-white" : "tablet:hover:text-gray-300"}`
                 }>
                 {innerText}
             </div>

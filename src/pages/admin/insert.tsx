@@ -65,8 +65,8 @@ const Add = () => {
       <Head>
         <title>New Report</title>
       </Head>
-      <main className="m-auto">
-        <div className='grid grid-cols-3'>
+      <main className="w-full bg-white">
+        <div className='grid grid-cols-3 w-3/4'>
           <Input
             label="Patient ID"
             value={ref.current.patientId}

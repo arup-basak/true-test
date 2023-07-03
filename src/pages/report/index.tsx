@@ -19,7 +19,7 @@ const App = () => {
         <title>Download Report</title>
       </Head>
       <motion.div
-        className="flex tablet:items-center justify-center min-h-[80vh]"
+        className="flex tablet:items-center justify-center min-h-[80vh] bg-white"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
       >

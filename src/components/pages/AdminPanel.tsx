@@ -50,7 +50,7 @@ const AdminPanel = () => {
             <Head>
                 <title>Admin</title>
             </Head>
-            <>
+            <div className='h-screen bg-white'>
                 <AdminAlert
                     setFilter={(filterValue: string) => {
                         setFilter(filterValue === 'NULL' ? null: { key: "status", value: filterValue })
@@ -76,7 +76,7 @@ const AdminPanel = () => {
                         ))}
                     </div>
                 </div>
-            </>
+            </div>
         </>
     );
 };

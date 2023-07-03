@@ -7,7 +7,7 @@ import edit_icon from 'public/edit.svg'
 import Status from './Status'
 import PaymentDoneButton from './PaymentDone'
 import { db } from '@/libs/firebase'
-import { setDoc, getDoc, collection, where, query, getDocs, updateDoc, doc } from 'firebase/firestore'
+import { collection, where, query, getDocs, updateDoc } from 'firebase/firestore'
 
 interface ReportProp {
     data: Report,
@@ -60,7 +60,7 @@ const MinReportCard = (
     // }
 
     return (
-        <div className='bg-slate-200 rounded p-2 px-4 w-full my-3 flex items-center justify-between transition shadow-md hover:bg-slate-300 mobile:text-sm tablet::text-base'>
+        <div className='bg-[#f4f1de] rounded p-2 px-4 w-full my-3 flex items-center justify-between transition hover:bg-[#f5f0d3] mobile:text-sm tablet::text-base'>
             <div>
                 {`${id + 1}. ${pName}`}
             </div>
