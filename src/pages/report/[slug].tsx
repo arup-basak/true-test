@@ -49,10 +49,6 @@ const ReportApp = () => {
                     const response = await axios.post(`/api/report?id=${slug}`);
                     if (response.data.status === 'success') {
                         setData(response.data)
-                        const pdf = pdfMake.createPdf(generateDoc(data, URL));
-                        pdf.getBlob((blob: Blob) => {
-                            setBlob(blob)
-                        })
                     }
                 }
             } catch (error) {
@@ -61,7 +57,14 @@ const ReportApp = () => {
 
         };
 
-        fetchData();
+        fetchData().then(() => {
+            if(data) {
+                const pdf = pdfMake.createPdf(generateDoc(data, URL));
+                pdf.getBlob((blob: Blob) => {
+                    setBlob(blob)
+                })
+            }
+        })
     }, [slug]);
 
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
