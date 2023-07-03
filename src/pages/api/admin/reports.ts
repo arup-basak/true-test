@@ -13,18 +13,35 @@ export default async function handler(
     }
 
     const ref = collection(db, 'reports');
-    const q = req.query && req.query.patientId ?
-        query(ref, where("patientId", "==", String(req.query.patientId))) :
-        query(ref)
+    if (req.query && req.query.patientId) {
+        const q = query(ref, where("patientId", "==", String(req.query.patientId)))
 
-    const querySnapshot = await getDocs(q)
-    const reports = querySnapshot.docs.map((doc) => doc.data());
-    if (reports) {
-        res.status(200).json(req.query && req.query.patientId ? reports[0] : reports)
+        const querySnapshot = await getDocs(q)
+        const report = querySnapshot.docs[0];
+        if (report) {
+            res.status(200).json({
+                id: report.id,
+                report: report.data()
+            })
+        }
+        else {
+            res.status(500).json({ "message": "error" })
+        }
     }
-    else
-        res.status(500).json({ "message": "error" })
-
-
-
+    else {
+        const q = query(ref)
+        const querySnapshot = await getDocs(q)
+        const reports = querySnapshot.docs.map((doc) => {
+            return {
+                id: doc.id,
+                report: doc.data()
+            }
+        });
+        if (reports) {
+            res.status(200).json(reports)
+        }
+        else {
+            res.status(500).json({ "message": "error" })
+        }
+    }
 }

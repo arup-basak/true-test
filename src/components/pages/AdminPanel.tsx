@@ -12,10 +12,15 @@ interface FilterInterface {
     value: string
 }
 
+interface Data {
+    id: string,
+    report: Report
+}
+
 const AdminPanel = () => {
-    const [data, setData] = useState<Report[]>();
+    const [data, setData] = useState<Data[]>();
     const [filter, setFilter] = useState<FilterInterface | null>();
-    const [viewData, setViewData] = useState<Report[]>();
+    const [viewData, setViewData] = useState<Data[]>();
 
     const [alertVisibility, setAlertVisibility] = useState(false)
 
@@ -40,7 +45,7 @@ const AdminPanel = () => {
         if (!filter)
             setViewData(data);
         else {
-            const filteredData = data.filter((item) => item[filter.key] === filter.value);
+            const filteredData = data.filter((item) => item.report[filter.key] === filter.value);
             setViewData(filteredData);
         }
     }, [data, filter]);
@@ -53,7 +58,7 @@ const AdminPanel = () => {
             <div className='h-screen bg-white'>
                 <AdminAlert
                     setFilter={(filterValue: string) => {
-                        setFilter(filterValue === 'NULL' ? null: { key: "status", value: filterValue })
+                        setFilter(filterValue === 'NULL' ? null : { key: "status", value: filterValue })
                         setAlertVisibility(false)
                     }}
                     visibility={alertVisibility}
@@ -71,8 +76,13 @@ const AdminPanel = () => {
                         />
                     </div>
                     <div className='px-3'>
-                        {viewData?.map((item, key) => (
-                            <MinReportCard data={item} key={item.patientDetails['Patient Id']} id={key} />
+                        {viewData?.map((item, index) => (
+                            <MinReportCard
+                                data={item.report}
+                                key={item.report.patientDetails['Patient Id']}
+                                id={item.id}
+                                index={index}
+                            />
                         ))}
                     </div>
                 </div>
