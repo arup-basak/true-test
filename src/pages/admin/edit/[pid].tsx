@@ -4,8 +4,7 @@ import Head from 'next/head';
 import Button from '@/components/Button';
 import axios from 'axios';
 import { Report } from '@/libs/interface';
-import Input from '@/components/Input';
-import secureLocalStorage from "react-secure-storage";
+import EditComponent from '@/components/admin/EditComponent';
 
 const EditPanel = () => {
     const router = useRouter();
@@ -13,25 +12,21 @@ const EditPanel = () => {
 
     const [data, setData] = useState<Report>()
 
-    const onHandleChange = () => {
-
-    }
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (pid) {
-                    const response = await axios.post(`/api/admin/reports?patientId=${pid}`);
+                const response = await axios.post(`/api/admin/reports?patientId=${pid}`);
 
-                    const jsonData = response.data;
-                    if (jsonData.status !== 'error')
-                        setData(jsonData)
-                }
+                const jsonData = response.data;
+                if (jsonData.status !== 'error')
+                    setData(jsonData)
             } catch (error) {
                 console.error(error);
             }
         };
-        fetchData()
+
+        if (pid)
+            fetchData()
     }, [pid]);
 
 
@@ -41,20 +36,12 @@ const EditPanel = () => {
                 <title>Edit</title>
             </Head>
             <div>
-                <div>
-                    {data?.patientDetails && (
-                        <ul>
-                            {Object.keys(data.patientDetails).map((key: string) => {
-
-                                return (
-                                    <Input
-                                        key={key}
-                                        label={key}
-                                        value={String(data.patientDetails[key])}
-                                    />
-                                )
-                            })}
-                        </ul>
+                <div className='w-3/4'>
+                    {data && (
+                        <EditComponent
+                            defaultData={data}
+                            onChange={(newData: Report) => {setData(newData)}}
+                        />
                     )}
                 </div>
                 <div>

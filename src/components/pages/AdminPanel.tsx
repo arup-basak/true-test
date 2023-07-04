@@ -57,7 +57,7 @@ const AdminPanel = () => {
                     }}
                     visibility={alertVisibility}
                 />
-                <div className='m-auto mobile:w-full tablet:w-3/5 h-screen'>
+                <div className='m-auto mobile:w-full tablet:w-4/5 desktop:w-3/5 h-screen'>
                     <div className='flex justify-end my-2'>
                         <ImageButton
                             src={filter_icon}
@@ -70,13 +70,13 @@ const AdminPanel = () => {
                         />
                     </div>
                     <div className='px-3'>
-                        {viewData?.map((item, index) => (
-                            <MinReportCard
+                        {viewData?.map((item, index) => {
+                            return <MinReportCard
                                 key={item.patientId}
                                 index={index}
                                 data={item}
                             />
-                        ))}
+                        })}
                     </div>
                 </div>
             </div>
