@@ -12,15 +12,10 @@ interface FilterInterface {
     value: string
 }
 
-interface Data {
-    id: string,
-    report: Report
-}
-
 const AdminPanel = () => {
-    const [data, setData] = useState<Data[]>();
+    const [data, setData] = useState<Report[]>();
     const [filter, setFilter] = useState<FilterInterface | null>();
-    const [viewData, setViewData] = useState<Data[]>();
+    const [viewData, setViewData] = useState<Report[]>();
 
     const [alertVisibility, setAlertVisibility] = useState(false)
 
@@ -41,11 +36,10 @@ const AdminPanel = () => {
         if (!data) {
             return;
         }
-
         if (!filter)
             setViewData(data);
         else {
-            const filteredData = data.filter((item) => item.report[filter.key] === filter.value);
+            const filteredData = data.filter((item) => item[filter.key] === filter.value);
             setViewData(filteredData);
         }
     }, [data, filter]);
@@ -78,10 +72,9 @@ const AdminPanel = () => {
                     <div className='px-3'>
                         {viewData?.map((item, index) => (
                             <MinReportCard
-                                data={item.report}
-                                key={item.report.patientDetails['Patient Id']}
-                                id={item.id}
+                                key={item.patientId}
                                 index={index}
+                                data={item}
                             />
                         ))}
                     </div>

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '@/libs/firebase'
-import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
 export default async function handler(
@@ -19,10 +19,7 @@ export default async function handler(
         const querySnapshot = await getDocs(q)
         const report = querySnapshot.docs[0];
         if (report) {
-            res.status(200).json({
-                id: report.id,
-                report: report.data()
-            })
+            res.status(200).json(report.data())
         }
         else {
             res.status(500).json({ "message": "error" })
@@ -31,12 +28,7 @@ export default async function handler(
     else {
         const q = query(ref)
         const querySnapshot = await getDocs(q)
-        const reports = querySnapshot.docs.map((doc) => {
-            return {
-                id: doc.id,
-                report: doc.data()
-            }
-        });
+        const reports = querySnapshot.docs.map((doc) => doc.data());
         if (reports) {
             res.status(200).json(reports)
         }

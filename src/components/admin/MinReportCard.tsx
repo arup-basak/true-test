@@ -11,12 +11,11 @@ import { updateDoc, doc } from 'firebase/firestore'
 
 interface ReportProp {
     data: Report,
-    id: string,
     index: number
 }
 
 const MinReportCard = (
-    { data, id, index }: ReportProp
+    { data, index }: ReportProp
 ) => {
     const { push } = useRouter();
     const pName = data.patientDetails['Patient Name']
@@ -24,7 +23,7 @@ const MinReportCard = (
     const [status, setStatus] = useState<string>(data.status)
 
     const handleOnClick = async () => {
-        const docRef = doc(db, "reports", id);
+        const docRef = doc(db, "reports", String(data.patientId));
 
         const updateData = {
             "status": data.status === "payment-required" ? "success" : "payment-required",
@@ -47,7 +46,7 @@ const MinReportCard = (
             </div>
             <div className='flex items-center'>
                 {
-                    (status === 'payment-required' || status === 'draft')  && (
+                    (status === 'payment-required' || status === 'draft') && (
                         <PaymentDoneButton onClick={handleOnClick} />
                     )
                 }
