@@ -3,27 +3,21 @@ import Head from 'next/head';
 import { Report } from '@/libs/interface';
 import MinReportCard from '@/components/admin/MinReportCard';
 import axios from 'axios';
-import filter_icon from 'public/filter.svg'
-import ImageButton from '../ImageButton';
-import AdminAlert from '../admin/AdminAlert';
-
-interface FilterInterface {
-    key: string,
-    value: string
-}
+import SearchBar from '../SearchBar';
 
 const AdminPanel = () => {
     const [data, setData] = useState<Report[]>();
-    const [filter, setFilter] = useState<FilterInterface | null>();
     const [viewData, setViewData] = useState<Report[]>();
 
-    const [alertVisibility, setAlertVisibility] = useState(false)
+    const [filterString, setFilterString] = useState('NULL')
+    const [searchText, setSearchText] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.post('/api/admin/reports');
                 setData(response.data);
+                setViewData(response.data)
             } catch (error) {
                 console.error(error);
             }
@@ -32,17 +26,26 @@ const AdminPanel = () => {
         fetchData();
     }, [setData]);
 
-    useEffect(() => {
-        if (!data) {
-            return;
+    const handleOnFilter = (keyword: string, filter: string) => {
+        setSearchText(keyword)
+        if (data) {
+            const reports: Report[] = data.filter((rep) => {
+
+                if (
+                    (
+                        rep.patientDetails['Patient Name'].toLowerCase().includes(keyword.toLowerCase()) ||
+                        rep.patientId.includes(keyword)
+                    ) &&
+                    (
+                        filter === 'NULL' || rep.status === filter
+                    )
+                ) {
+                    return rep
+                }
+            })
+            setViewData(reports)
         }
-        if (!filter)
-            setViewData(data);
-        else {
-            const filteredData = data.filter((item) => item[filter.key] === filter.value);
-            setViewData(filteredData);
-        }
-    }, [data, filter]);
+    }
 
     return (
         <>
@@ -50,25 +53,14 @@ const AdminPanel = () => {
                 <title>Admin</title>
             </Head>
             <div className='h-screen bg-white'>
-                <AdminAlert
-                    setFilter={(filterValue: string) => {
-                        setFilter(filterValue === 'NULL' ? null : { key: "status", value: filterValue })
-                        setAlertVisibility(false)
-                    }}
-                    visibility={alertVisibility}
-                />
                 <div className='m-auto mobile:w-full tablet:w-4/5 desktop:w-3/5 h-screen'>
-                    <div className='flex justify-end my-2'>
-                        <ImageButton
-                            src={filter_icon}
-                            altText='filter'
-                            onClick={() => {
-                                setAlertVisibility(true)
-                            }}
-                            text='Filter'
-                            className='px-4'
-                        />
-                    </div>
+                    <SearchBar
+                        dropDownOnChange={(value) => {
+                            handleOnFilter(searchText, value)
+                        }}
+                        onType={(value) => handleOnFilter(value, filterString)}
+                        className='mx-3 mt-2'
+                    />
                     <div className='px-3'>
                         {viewData?.map((item, index) => {
                             return <MinReportCard
