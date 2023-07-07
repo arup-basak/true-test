@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Login from '@/components/pages/Login';
 import AdminPanel from '@/components/pages/AdminPanel';
+import secureLocalStorage  from  "react-secure-storage";
 
 const Admin = () => {
   const [login, setLogin] = useState(false);
@@ -11,8 +12,8 @@ const Admin = () => {
       user === String(process.env.NEXT_PUBLIC_ADMIN_USERNAME) &&
       pass === String(process.env.NEXT_PUBLIC_ADMIN_PASSWORD)
     ) {
-      localStorage.setItem("login-username", user);
-      localStorage.setItem("login-password", pass);
+      secureLocalStorage.setItem("login-username", user);
+      secureLocalStorage.setItem("login-password", pass);
       setLogin(true);
       setLoading(false)
     } else {
@@ -21,11 +22,11 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    const USERNAME = localStorage.getItem("login-username");
-    const PASSWORD = localStorage.getItem("login-password");
+    const USERNAME = secureLocalStorage.getItem("login-username");
+    const PASSWORD = secureLocalStorage.getItem("login-password");
 
     if (USERNAME && PASSWORD) {
-      handleLoginRequest(USERNAME, PASSWORD);
+      handleLoginRequest(String(USERNAME), String(PASSWORD));
     } else {
       setLoading(false);
     }

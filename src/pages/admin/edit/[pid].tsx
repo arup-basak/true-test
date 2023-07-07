@@ -29,6 +29,10 @@ const EditPanel = () => {
             fetchData()
     }, [pid]);
 
+    const handleOnSave = (data: Report) => {
+        //TODO
+    }
+
 
     return (
         <>
@@ -40,7 +44,8 @@ const EditPanel = () => {
                     {data && (
                         <EditComponent
                             defaultData={data}
-                            onChange={(newData: Report) => {setData(newData)}}
+                            onSave={(newData: Report) => { handleOnSave(newData) }}
+                            saveText='Update'
                         />
                     )}
                 </div>

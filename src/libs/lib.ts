@@ -1,11 +1,31 @@
 import { Report } from "./interface";
 
-export const generateRandomNumber = () => {
-    const min = 1000000000; // Minimum 10-digit number (inclusive)
-    const max = 9999999999; // Maximum 10-digit number (inclusive)
-    const randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+export const generateRandomString = (length: number) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-    return randomNumber
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+
+    return result;
+}
+
+export const getRandomStringArray = (len: number) => {
+    const array: string[] = [];
+
+    for (let i = 0; i < len; i++) {
+        const randomString = generateRandomString(7);
+        array.push(randomString);
+    }
+
+    return array;
+}
+
+export const generateRandomNumber = () => {
+    const currentTimeInMillis = new Date().getTime();
+    return currentTimeInMillis
 }
 
 

@@ -1,7 +1,8 @@
 import Input from '@/components/Input';
 import { useState, ChangeEvent } from 'react';
 import { ReportResult } from '@/libs/interface';
-import Button from '../Button';
+import delete_icon from 'public/trash_icon.svg'
+import ImageButton from '../ImageButton';
 
 interface InsertTestReportProps {
   onChange: (data: ReportResult) => void;
@@ -22,9 +23,15 @@ const InsertTestReport: React.FC<InsertTestReportProps> = ({ onChange, data, onD
   };
 
   return (
-    <>
-      <Button onClick={() => onDestroy()} innerText='Destroy' />
-      <div className="grid grid-cols-2 gap-3 p-5 m-3 bg-slate-100 rounded-2xl shadow">
+    <div className='p-5 m-3 bg-slate-100 rounded-2xl shadow'>
+      <div className='w-full flex justify-end'>
+        <ImageButton
+          src={delete_icon}
+          altText='Delete Button'
+          onClick={onDestroy}
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col">
           <label htmlFor="testName" className="mb-1">
             Test Name
@@ -77,7 +84,7 @@ const InsertTestReport: React.FC<InsertTestReportProps> = ({ onChange, data, onD
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

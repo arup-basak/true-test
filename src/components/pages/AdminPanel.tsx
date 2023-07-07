@@ -3,14 +3,19 @@ import Head from 'next/head';
 import { Report } from '@/libs/interface';
 import MinReportCard from '@/components/admin/MinReportCard';
 import axios from 'axios';
-import SearchBar from '../SearchBar';
+import SearchBar from '@/components/SearchBar';
+import ImageButton from '../ImageButton';
+import add_icon from 'public/add.svg'
+import { useRouter } from 'next/router';
 
 const AdminPanel = () => {
     const [data, setData] = useState<Report[]>();
     const [viewData, setViewData] = useState<Report[]>();
 
-    const [filterString, setFilterString] = useState('NULL')
+    const [filterString, setFilterString] = useState('no-filter')
     const [searchText, setSearchText] = useState('')
+
+    const { push } = useRouter()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +42,7 @@ const AdminPanel = () => {
                         rep.patientId.includes(keyword)
                     ) &&
                     (
-                        filter === 'NULL' || rep.status === filter
+                        filter === 'no-filter' || rep.status === filter
                     )
                 ) {
                     return rep
@@ -53,12 +58,22 @@ const AdminPanel = () => {
                 <title>Admin</title>
             </Head>
             <div className='h-screen bg-white'>
+                <ImageButton
+                    src={add_icon}
+                    text='Add Test'
+                    className='shadow px-6 absolute left-2 top-3'
+                    altText='Add Text'
+                    onClick={() => { push('/admin/insert') }}
+                />
                 <div className='m-auto mobile:w-full tablet:w-4/5 desktop:w-3/5 h-screen'>
                     <SearchBar
                         dropDownOnChange={(value) => {
                             handleOnFilter(searchText, value)
                         }}
-                        onType={(value) => handleOnFilter(value, filterString)}
+                        onType={(value) => {
+                            setFilterString(value)
+                            handleOnFilter(value, filterString)
+                        }}
                         className='mx-3 mt-2'
                     />
                     <div className='px-3'>
